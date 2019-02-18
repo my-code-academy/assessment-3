@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card should match the snapshot 1`] = `
+<div
+  class="card"
+>
+  <img
+    alt="abstract"
+    className="image"
+  />
+  <div
+    className="container"
+  >
+    <p
+      className="title"
+    />
+    <p
+      className="abstract"
+    />
+    <div
+      className="responses"
+    >
+      <span />
+      <img
+        alt=""
+        className="heart"
+        onClick={[Function]}
+        src="heart-red.svg"
+      />
+    </div>
+  </div>
+</div>
+`;

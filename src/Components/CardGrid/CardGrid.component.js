@@ -1,24 +1,44 @@
 import React, { Component } from 'react';
 import './CardGrid.component.css';
-import Axios from 'axios';
+import axios from 'axios';
+import Card from '../Card/Card.component';
 
 class CardGridComponent extends Component {
 
+  state = {
+    booksData: {},
+  }
+
   componentDidMount() {
-    Axios('').then((jsonObj) => {
-      console.log(jsonObj.data);
-      this.props.addCards(jsonObj.data);
+    axios.get('http://localhost:8080/books').then((booksDataFromAPI) => {
+      this.setState({ booksData: booksDataFromAPI.data });
+      console.log(this.state.booksData);
     });
   }
 
   render() {
     return (
       <div className='CardGrid'>
-        <div className='CardGridAuthor'>
-          <h1><span>Div title</span></h1>
-        </div>
+        {
+          Object.entries(this.state.booksData).map(author => {
+            return <div className='CardGridAuthor'>
+              <h1><span>{author[0]}</span></h1>
+              {
+                author[1].map((bookCard, index) => {
+                  return <Card
+                    title={bookCard.title}
+                    name={bookCard.Name}
+                    liked={bookCard.liked}
+                    rating={bookCard.rating}
+                    imageSrc={`./Images/cover_image.jpeg`}
+                  ></Card>
+                })
+              }
+            </div>
+          })
+        }
       </div>
-      
+
     )
   }
 }
