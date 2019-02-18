@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './CardGrid.component.css';
 import axios from 'axios';
 import Card from '../Card/Card.component';
+import {getBookDataFromServer} from '../../axiosRequestUtils';
 
 class CardGridComponent extends Component {
 
@@ -10,7 +11,7 @@ class CardGridComponent extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:8080/books').then((booksDataFromAPI) => {
+    getBookDataFromServer().then((booksDataFromAPI) => {
       let booksDataCopy = booksDataFromAPI.data;
       this.setState({ booksData: booksDataCopy });
       console.log(this.state.booksData);

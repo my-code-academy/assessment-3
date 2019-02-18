@@ -2,22 +2,30 @@ import React, { Component } from 'react';
 import './Card.component.css';
 import BlackHeartImage from '../../Icons/heart-black.svg'
 import RedHeartImage from '../../Icons/heart-red.svg';
-import Axios from 'axios';
+import {addLikeToDatabase, addDislikeToDatabase} from '../../axiosRequestUtils';
 
 
 class Card extends Component {
   state = {
-    liked: this.props.liked,
+    notLiked: true,
   }
 
   toggleImage = (id) => {
-    this.setState(state => ({ liked: !state.liked }));
-    Axios.get(`http://localhost:8080/books/like/${id}`).then((response) => {
-      console.log(response);
-    })
+    this.setState(state => ({ notLiked: !state.notLiked }));
+    if(this.state.notLiked) {
+      addLikeToDatabase(id).then((response) => {
+        console.log(response);
+        
+      });
+    } else {
+      addDislikeToDatabase(id).then((response) => {
+        console.log(response);
+      });
+    }
+    
   }
 
-  getImageName = () => this.state.liked ? BlackHeartImage : RedHeartImage;
+  getImageName = () => this.state.notLiked ? BlackHeartImage : RedHeartImage;
 
   render() {
     return (
