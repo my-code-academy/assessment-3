@@ -1,0 +1,27 @@
+.CardGrid {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.CardGridAuthor {
+  position: relative;
+  border: 5px solid white;
+  width: 50%;
+  height: 50%;
+  margin-left: 25%;
+  margin-right: 30%;
+  margin-top: 5%; 
+}
+
+.CardGridAuthor h1{
+  text-align: center;
+  margin-top: -10px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 15px;
+}
+
+.CardGridAuthor h1 span{
+  background-color: white;
+}
