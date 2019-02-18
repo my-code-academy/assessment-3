@@ -7,22 +7,30 @@ class CardGridComponent extends Component {
 
   state = {
     booksData: {},
+    cardColorIsWhite: true,
   }
 
   componentDidMount() {
     axios.get('http://localhost:8080/books').then((booksDataFromAPI) => {
-      this.setState({ booksData: booksDataFromAPI.data });
+      let booksDataCopy = booksDataFromAPI.data;
+      
+      this.setState({ booksData: booksDataCopy });
       console.log(this.state.booksData);
     });
   }
 
   render() {
+    const backgroundColor = ['orange', 'white'];
+    const textColor = ['black', 'orange'];
     return (
       <div className='CardGrid'>
         {
           Object.entries(this.state.booksData).map(author => {
-            return <div className='CardGridAuthor'>
-              <h1><span>{author[0]}</span></h1>
+            return <fieldset className='CardGridAuthor'>
+              <legend>{author[0]}</legend>
+              {/* <h1><span>{author[0]}</span></h1> */}
+              <div className='CardGridAuthor noBorder'>
+
               {
                 author[1].map((bookCard, index) => {
                   return <Card
@@ -31,10 +39,14 @@ class CardGridComponent extends Component {
                     liked={bookCard.liked}
                     rating={bookCard.rating}
                     imageSrc={`./Images/cover_image.jpeg`}
+                    backgroundColor={backgroundColor[index%2]}
+                    textColor={textColor[index%2]}
                   ></Card>
                 })
               }
-            </div>
+              </div>
+            </fieldset>
+            
           })
         }
       </div>
