@@ -7,13 +7,11 @@ class CardGridComponent extends Component {
 
   state = {
     booksData: {},
-    cardColorIsWhite: true,
   }
 
   componentDidMount() {
     axios.get('http://localhost:8080/books').then((booksDataFromAPI) => {
       let booksDataCopy = booksDataFromAPI.data;
-      
       this.setState({ booksData: booksDataCopy });
       console.log(this.state.booksData);
     });
@@ -34,6 +32,7 @@ class CardGridComponent extends Component {
               {
                 author[1].map((bookCard, index) => {
                   return <Card
+                    bookId={bookCard.id}
                     title={bookCard.title}
                     name={bookCard.Name}
                     liked={bookCard.liked}

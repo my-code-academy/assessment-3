@@ -2,18 +2,22 @@ import React, { Component } from 'react';
 import './Card.component.css';
 import BlackHeartImage from '../../Icons/heart-black.svg'
 import RedHeartImage from '../../Icons/heart-red.svg';
+import Axios from 'axios';
 
 
 class Card extends Component {
   state = {
-    open: this.props.liked,
+    liked: this.props.liked,
   }
 
-  toggleImage = () => {
-    this.setState(state => ({ open: !state.open }))
+  toggleImage = (id) => {
+    this.setState(state => ({ liked: !state.liked }));
+    Axios.get(`http://localhost:8080/books/like/${id}`).then((response) => {
+      console.log(response);
+    })
   }
 
-  getImageName = () => this.state.open ? BlackHeartImage : RedHeartImage;
+  getImageName = () => this.state.liked ? BlackHeartImage : RedHeartImage;
 
   render() {
     return (
@@ -34,7 +38,7 @@ class Card extends Component {
               <span>{this.props.rating}</span>
             </div>
             <div className="likes">
-              <img alt="" className="heart" src={this.getImageName()} onClick={this.toggleImage}/>
+              <img alt="" className="heart" src={this.getImageName()} onClick={() => this.toggleImage(this.props.bookId)}/>
             </div>
           </div>
         </section>
